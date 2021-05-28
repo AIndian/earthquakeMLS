@@ -16,7 +16,9 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 // An array containing each city's name, location, and population
 var cities = [{
+
 location: [37.155177, -119.543418], name: "Amador" },
+{ location: [37.7799, -122.282], name: "Alameda" },
   { location: [39.6254, -121.537], name: "Butte" },
   { location: [37.155177, -119.543418], name: "Calaveras" },
   { location: [34.839964, -115.967051], name: "Contra-Costa" },
