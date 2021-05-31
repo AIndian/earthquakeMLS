@@ -4,19 +4,6 @@ var faultURL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&
 `&maxlongitude=${Region[1][1]}&minlongitude=${Region[0][1]}&maxlatitude=${Region[0][0]}&minlatitude=${Region[1][0]}&minmagnitude=${earthquakeMagnitude}`;
 var zipcodeURL = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=&rows=3000&facet=state&facet=timezone&facet=dst&geofilter.polygon=(37.81%2C+-124.49)%2C+(37.81%2C+-105.61)%2C+(32.06%2C+-105.61)%2C+(32.06%2C-124.49)"
 
-const { Client } = require('pg');
-const client = new Client()
-await client.connect()
-var connectionString = "postgresql://zbhtrmywnxmbym:199f1d11d2d4d504723828eb19e03483e17129e0ebb111e895bdc32998715894@ec2-3-212-75-25.compute-1.amazonaws.com:5432/de12rg1na3grjp"
-var pgClient = new pg.Client(connectionString);
-pgClient.connect();
-var query = pgClient.query('SELECT "City","21-Apr" FROM "housePrices"')
-query.on("row", function(row, result) {
-result.addRow(row);
-console.log(result)
-});
-
-
   var myMap = L.map("map", {
     center: [
       35.0, -115.71
@@ -36,7 +23,6 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 
 d3.json(faultURL).then(function(earthquakeData) {
-d3.json()
     function onEachFeature(feature, layer) {
     layer.bindPopup("<h3>" + feature.properties.place + "coordinates: " + feature.geometry.coordinates +
       "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
@@ -99,5 +85,5 @@ L.control.layers(baseMaps, overlayMaps, {
 }).addTo(myMap);
 
 });
-pgClient.end();
+
 
