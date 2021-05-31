@@ -1,7 +1,7 @@
 // Create a map object
 var myMap = L.map("map", {
-  center: [37.09, -95.71],
-  zoom: 5
+  center: [36.09, -115.71],
+  zoom: 6
 });
 
 // Add a tile layer
@@ -67,7 +67,7 @@ location: [37.155177, -119.543418], name: "Amador" },
   { location: [37.921694, -120.267887], name: "Tuolumne" },
   { location: [34.330829, -119.358352], name: "Ventura" },
   { location: [38.73185, -121.80774], name: "Yolo" },
-  { location: [39.2547, -239.6436], name: "Yuba" },
+  { location: [39.2547, -121.3999], name: "Yuba" },
   { location: [34.0522, -118.2437], name: "LA Metro" },
   { location: [35.6, -121.1], name: "Central Coast" },
   { location: [40.1999, -122.2011], name: "Central Valley" },
