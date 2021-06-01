@@ -3,6 +3,7 @@ var earthquakeMagnitude = 4
 var faultURL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-01-01&endtime=2021-05-01"+
 `&maxlongitude=${Region[1][1]}&minlongitude=${Region[0][1]}&maxlatitude=${Region[0][0]}&minlatitude=${Region[1][0]}&minmagnitude=${earthquakeMagnitude}`;
 var zipcodeURL = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=&rows=3000&facet=state&facet=timezone&facet=dst&geofilter.polygon=(37.81%2C+-124.49)%2C+(37.81%2C+-105.61)%2C+(32.06%2C+-105.61)%2C+(32.06%2C-124.49)"
+var houseURL = "http://127.0.0.1:5000/api/house"
 
   var myMap = L.map("map", {
     center: [
@@ -23,6 +24,8 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 
 d3.json(faultURL).then(function(earthquakeData) {
+d3.json(houseURL).then(function(houseinfo) {
+
     function onEachFeature(feature, layer) {
     layer.bindPopup("<h3>" + feature.properties.place + "coordinates: " + feature.geometry.coordinates +
       "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
@@ -42,11 +45,22 @@ d3.json(faultURL).then(function(earthquakeData) {
     accessToken: API_KEY
         });
 
+    console.log(houseinfo)
+    var houselat_long = []
+    var j;
+    for (j = 0; i < houseinfo[0].lat.length; j++){
 
+        var lat = houseinfo[0].lat[i];
+        var lon = houseinfo[0].lon[i];
+        var price = houseinfo[0].pri[i]
+        if (lat) {
+          houselat_long.push([lon, lat, price]);
+        }
+    }
 
-    console.log(earthquakeData);
     // var magnitude = []
     var lat_long = [];
+    var quakemarkers = []
     var i;
     for (i = 0; i < earthquakeData.features.length; i ++){
 
@@ -55,6 +69,7 @@ d3.json(faultURL).then(function(earthquakeData) {
         if (geometry) {
           lat_long.push([geometry.coordinates[1], geometry.coordinates[0], properties.mag]);
         }
+        quakeMarkers.push(L.markers([geometry.coordinates[1], geometry.coordinates[0]]).bindPopup("<h2>" + properties.title + "</h2>"))
     }
 
 
@@ -64,19 +79,20 @@ d3.json(faultURL).then(function(earthquakeData) {
 //  L.control.layers(baseMaps, overlayMaps, {
 //    collapsed: false
 //    })
-
+    var quakelayer = L.layerGroup(quakemarkers)
     var baseMaps = {
     "Street Map": streetmap,
     "Dark Map": darkmap
      };
 
-    var heat = L.heatLayer(lat_long, {
+    var heat = L.heatLayer(houselat_long, {
     radius: 15,
     maxZoom: 5
     }).addTo(myMap)
 
+
     var overlayMaps = {
-    Earthquakes: heat,
+    Earthquakes: quakelayer,
     Houses: heat
     };
 
@@ -85,5 +101,5 @@ L.control.layers(baseMaps, overlayMaps, {
 }).addTo(myMap);
 
 });
-
+});
 
