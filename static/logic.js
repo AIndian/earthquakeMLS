@@ -4,6 +4,7 @@ var faultURL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&
 `&maxlongitude=${Region[1][1]}&minlongitude=${Region[0][1]}&maxlatitude=${Region[0][0]}&minlatitude=${Region[1][0]}&minmagnitude=${earthquakeMagnitude}`;
 var zipcodeURL = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=&rows=3000&facet=state&facet=timezone&facet=dst&geofilter.polygon=(37.81%2C+-124.49)%2C+(37.81%2C+-105.61)%2C+(32.06%2C+-105.61)%2C+(32.06%2C-124.49)"
 var houseURL = "/api/house"
+var searchURL = "/send"
 
   var myMap = L.map("map", {
     center: [
@@ -95,6 +96,10 @@ d3.json(houseURL).then(function(houseinfo) {
 L.control.layers(baseMaps, overlayMaps, {
   collapsed: false
 }).addTo(myMap);
+
+d3.json(searchURL).then(function(cityinfo){
+    console.log(cityinfo)
+})
 
 });
 });

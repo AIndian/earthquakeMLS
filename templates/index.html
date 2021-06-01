@@ -14,11 +14,36 @@
 
   <!-- Our CSS -->
   <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
-  <!-- The div where we will inject our map -->
-  <div id="map"></div>
+  <div class="container">
+    <div class = "jumbotron text-center">
+      <h1>California Houses and Quakes</h1>
+      <p>Find your Earthquake and Housing information</p>
+    </div>
+
+    <div class = "col-md-8">
+        <form method = "GET" action="/send" role="search", name="search">
+          <div class="form">
+            <label for="cityName"> California City Name </label>
+            <input type="text" class="form-control" id="cityName" name="cityName" placeholder="San Francisco">
+            <input type="submit" value="Search" class ="btn btn-default">
+          </div>
+        </form>
+    </div>
+
+  <div class="row">
+    <div class = "col-md-12">
+      <h2>Earthquakes and Houses!</h2>
+      <!-- The div where we will inject our map -->
+      <div id="map"></div>
+    </div>
+  </div>
+  </div>
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
