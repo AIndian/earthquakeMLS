@@ -1,9 +1,9 @@
-var Region = [[37.81, -124.49],[32.06, -105.61]]
-var earthquakeMagnitude = 4
+var Region = [[42.03, -124.49],[32.5, -114.47]]
+var earthquakeMagnitude = 3
 var faultURL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2016-01-01&endtime=2021-05-01"+
 `&maxlongitude=${Region[1][1]}&minlongitude=${Region[0][1]}&maxlatitude=${Region[0][0]}&minlatitude=${Region[1][0]}&minmagnitude=${earthquakeMagnitude}`;
 var zipcodeURL = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=&rows=3000&facet=state&facet=timezone&facet=dst&geofilter.polygon=(37.81%2C+-124.49)%2C+(37.81%2C+-105.61)%2C+(32.06%2C+-105.61)%2C+(32.06%2C-124.49)"
-var houseURL = "http://127.0.0.1:5000/api/house"
+var houseURL = "/api/house"
 
   var myMap = L.map("map", {
     center: [
@@ -48,19 +48,22 @@ d3.json(houseURL).then(function(houseinfo) {
     console.log(houseinfo)
     var houselat_long = []
     var j;
-    for (j = 0; i < houseinfo[0].lat.length; j++){
+    var housemarkers = []
+    for (j = 0; j < houseinfo[0].lat.length; j++){
 
-        var lat = houseinfo[0].lat[i];
-        var lon = houseinfo[0].lon[i];
-        var price = houseinfo[0].pri[i]
+        var city = houseinfo[0].text[j]
+        var lat = houseinfo[0].lat[j];
+        var lon = houseinfo[0].lon[j];
+        var price = houseinfo[0].pri[j]
         if (lat) {
-          houselat_long.push([lon, lat, price]);
-        }
+          houselat_long.push([lat, lon, price]);
+        };
+          housemarkers.push(L.marker([lat, lon]).bindPopup("<h1>" + city + "</h1>" + "<h2>" + "Median House Price: " + price+ "</h2>"))
     }
-
+    console.log(housemarkers)
+    console.log(houselat_long)
     // var magnitude = []
     var lat_long = [];
-    var quakemarkers = []
     var i;
     for (i = 0; i < earthquakeData.features.length; i ++){
 
@@ -69,30 +72,24 @@ d3.json(houseURL).then(function(houseinfo) {
         if (geometry) {
           lat_long.push([geometry.coordinates[1], geometry.coordinates[0], properties.mag]);
         }
-        quakemarkers.push(L.marker([geometry.coordinates[1], geometry.coordinates[0]]).bindPopup("<h2>" + properties.title + "</h2>"))
     }
 
 
   // Create a layer control
-  // Pass in our baseMaps and overlayMaps
-  // Add the layer control to the map
-//  L.control.layers(baseMaps, overlayMaps, {
-//    collapsed: false
-//    })
-    var quakelayer = L.layerGroup(quakemarkers)
+    var houselayer = L.layerGroup(housemarkers)
+
     var baseMaps = {
     "Street Map": streetmap,
     "Dark Map": darkmap
      };
 
-    var heat = L.heatLayer(houselat_long, {
+    var heat = L.heatLayer(lat_long, {
     radius: 15,
-    maxZoom: 5
+    maxZoom: 10
     }).addTo(myMap)
 
-
     var overlayMaps = {
-    Earthquakes: quakelayer
+    Housing: houselayer
     };
 
 L.control.layers(baseMaps, overlayMaps, {

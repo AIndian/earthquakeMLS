@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01f0b000-c980-4501-a9ac-8556a50399f1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/earthquakeMLS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/earthquakeMLS.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locations with markers/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/locations with markers/logic.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/static/logic.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/logic.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
