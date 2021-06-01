@@ -1,13 +1,8 @@
 # import necessary libraries
-import os
 from flask import (
     render_template,
 )
-import numpy as np
-
 import sqlalchemy as db
-from sqlalchemy.orm import Session
-
 from flask import Flask, jsonify
 
 #################################################
@@ -19,11 +14,7 @@ app = Flask(__name__)
 # Database Setup
 #################################################
 DATABASE_URL = "postgresql://zbhtrmywnxmbym:199f1d11d2d4d504723828eb19e03483e17129e0ebb111e895bdc32998715894@ec2-3-212-75-25.compute-1.amazonaws.com:5432/de12rg1na3grjp"
-
-from flask_sqlalchemy import SQLAlchemy
 engine = db.create_engine(DATABASE_URL)
-
-
 
 # create route that renders index.html template
 @app.route("/")
@@ -60,6 +51,7 @@ def pals():
     hover_text = [result[2] for result in results]
     pri = [result[3] for result in results]
 
+
     city_data = [{
         "type": "scattergeo",
         "locationmode": "USA-states",
@@ -78,7 +70,6 @@ def pals():
     }]
 
     return jsonify(city_data)
-
 
 if __name__ == "__main__":
     app.run()

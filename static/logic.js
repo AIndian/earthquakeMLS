@@ -69,7 +69,7 @@ d3.json(houseURL).then(function(houseinfo) {
         if (geometry) {
           lat_long.push([geometry.coordinates[1], geometry.coordinates[0], properties.mag]);
         }
-        quakeMarkers.push(L.markers([geometry.coordinates[1], geometry.coordinates[0]]).bindPopup("<h2>" + properties.title + "</h2>"))
+        quakemarkers.push(L.marker([geometry.coordinates[1], geometry.coordinates[0]]).bindPopup("<h2>" + properties.title + "</h2>"))
     }
 
 
@@ -92,8 +92,7 @@ d3.json(houseURL).then(function(houseinfo) {
 
 
     var overlayMaps = {
-    Earthquakes: quakelayer,
-    Houses: heat
+    Earthquakes: quakelayer
     };
 
 L.control.layers(baseMaps, overlayMaps, {
